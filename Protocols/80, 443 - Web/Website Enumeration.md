@@ -6,7 +6,7 @@ If it is a real-life pen test, refer to and start with [[Web - IRL]] for low han
 	- [ ] Looked for error messages, identified source code?
 - [ ] Mapped out tech-stack
 	- [ ] Looked for exploits and CVEs
-	- [ ] If there is a templating engine, tried SSTI
+	- [ ] If there is a templating engine, tried [[SSTI - Server Side Template Injection]]
 - [ ] If relevant, tried exploiting session tokens/cookies
 - [ ] Tried boiler plate attacks (open redirect, HTTP request smuggling etc)
 - [ ] HTTP method testing to uncover unexpected functionalities
@@ -99,7 +99,7 @@ wfuzz -u https://<link>/<page>/?FUZZ= -w <wordlist> -H "Cookie: PHPSESSID="
 - [[Open Redirect]]
 - [[QUIC]]
 - [[SSRF - Server-Side Request Forgery]]
-- [[SSTI - Server-Side Template Injection)]]
+- [[SSTI - Server Side Template Injection]]
 - [[WebDav]]
 - [[XSS - Cross-Site Scripting]]
 - [[XXE - XML External Entity]]
