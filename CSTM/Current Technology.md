@@ -198,3 +198,46 @@ S-1-5-21-3623811015-3361044348-30300820-1013
 │ └──────────────────────────────────────── Revision Level
 └────────────────────────────────────────── SID indicator
 ```
+
+
+# What are the two IPsec encoding methods and what are the pros and cons of each?
+**IPsec (Internet Protocol Security)** is a **set of protocols used to secure IP network communications** by **encrypting and authenticating IP packets** as they travel across a network such as the internet. It operates at the **Network Layer (Layer 3)** of the OSI model.
+
+- **Tunnel mode**:  It encapsulates the entire IP packet, including its header, within a new packet with a new header. This mode is akin to a protective envelope, ensuring the contents remain confidential and unaltered during their journey across public networks.
+	- The **entire original IP packet (header + payload)** is encrypted.
+	- A **new outer IP header** is added.
+
+- **Transport mode**: It  secures only the payload of the IP packet, leaving the header untouched. This approach is less about hiding and more about protecting the integrity and confidentiality of the message within.
+	- Only the **payload (data)** of the IP packet is encrypted/authenticated.
+	- The **original IP header remains visible**.
+
+## Pros and Cons
+| IPsec Mode | Pros | Cons |
+|-------------|------|------|
+| **Tunnel Mode** | - Entire packet (header + payload) is encrypted<br><br>- Better security and privacy since original IP addresses are hidden<br><br>- Ideal for VPNs and site-to-site connections | - Higher overhead because a new IP header is added<br><br>- Increased bandwidth usage<br><br>- Slightly slower performance due to extra processing |
+| **Transport Mode** | - Lower overhead because only the payload is encrypted<br><br>- Faster performance due to less encryption processing<br><br>- Efficient for host-to-host communication | - Original IP header remains visible<br><br>- Less privacy because source and destination addresses are exposed<br><br>- Not suitable for gateway-to-gateway VPNs 
+
+
+# In key signing do you use the private or public key for signing?
+In **public-key cryptography**, a **digital signature is created using the private key** and **verified using the public key**.
+This way only the owner has the **private key**, but the **public key is shared**, so everyone can confirm the signature without being able to forge it.
+
+- Private key -- Signing
+- Public Key -- Verify
+
+# What ports need to be open on a domain controller (DC)?
+| Port | Protocol | Service                  | Purpose                                     |
+| ---- | -------- | ------------------------ | ------------------------------------------- |
+| 53   | TCP/UDP  | DNS                      | Domain name resolution for Active Directory |
+| 88   | TCP/UDP  | Kerberos                 | Authentication protocol                     |
+| 135  | TCP      | RPC Endpoint Mapper      | RPC service discovery                       |
+| 137  | UDP      | NetBIOS Name Service     | Legacy name resolution                      |
+| 138  | UDP      | NetBIOS Datagram         | Legacy network browsing                     |
+| 139  | TCP      | NetBIOS Session          | Legacy file/auth traffic                    |
+| 389  | TCP/UDP  | LDAP                     | Directory queries                           |
+| 445  | TCP      | SMB                      | File sharing, SYSVOL access                 |
+| 464  | TCP/UDP  | Kerberos Password Change | Password updates                            |
+| 636  | TCP      | LDAPS                    | Secure LDAP                                 |
+| 3268 | TCP      | Global Catalog           | Forest-wide directory searches              |
+| 3269 | TCP      | Global Catalog over SSL  | Secure GC queries                           |
+
