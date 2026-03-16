@@ -241,3 +241,31 @@ This way only the owner has the **private key**, but the **public key is shared*
 | 3268 | TCP      | Global Catalog           | Forest-wide directory searches              |
 | 3269 | TCP      | Global Catalog over SSL  | Secure GC queries                           |
 
+
+# Explain the Simple Network Management Protocol (SNMP) protocol and any weaknesses in the protocol
+**SNMP** is a standard protocol used for **monitoring, managing, and configuring network devices** like routers, switches, servers, printers, and other networked hardware. It’s widely used in network management systems (NMS) to collect information about devices and sometimes to control them remotely.
+
+## Key Components
+1. **Managed Devices** – Devices on the network that support SNMP (e.g., routers, switches, servers).
+2. **Agents** – Software on managed devices that **collect information** and **respond to SNMP requests**.
+3. **Network Management System (NMS)** – Central software that **monitors and controls** devices using SNMP.
+4. **Operations:** Involves commands like GET (request data), SET (change configuration), and TRAP/INFORM (agent alerts manager of events)
+
+## How It Works
+SNMP operates using a **manager-agent model**:
+- The **manager** (NMS) requests information or sends commands.
+- The **agent** responds with data about the device or executes the command.
+
+
+## Versions
+SNMP has three main versions:
+1. **SNMPv1** – Original version; simple but lacks strong security.
+2. **SNMPv2c** – Improved performance; added bulk retrieval but still uses weak security (community strings).
+3. **SNMPv3** – Introduces **strong security features**: authentication, encryption, and access control.
+
+## Common Vulnerabilities and Weaknesses
+- **Plain Text Community Strings:** Versions 1 and 2c use clear-text "community strings" (analogous to passwords), allowing attackers to intercept them via sniffing.
+- **Weak Authentication:** The lack of secure authentication in v1 and v2c makes them susceptible to unauthorised access.
+- **Default Configurations:** Many devices default to "public" (read-only) or "private" (read/write) strings, enabling easy unauthorised access to network configurations.
+- **Lack of Encryption:** Data transmitted in v1 and v2c can be read and manipulated in transit.
+- **UDP Vulnerabilities:** Since it uses UDP, it is susceptible to packet loss and spoofing attacks
