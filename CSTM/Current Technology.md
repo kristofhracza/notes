@@ -61,8 +61,11 @@ It can also be used in file uploads by using the sequences in the file name for 
 
 # What are the four types of Application Programming Interface (API)?
 - **Public APIs** can be used by anyone to access a server’s data or other services from a client application. Common uses of public APIs include retrieving traffic and weather data and managing third-party login processes. Public APIs are generally intended to let any application use a service. Public APIs tend to be widely used, great care is taken not to change them unless absolutely necessary so as not to break the functionality of applications.
+
 - **Private APIs** are developed for internal use only and aren’t widely published. Typically, private APIs let a vendor’s applications communicate with that vendor’s servers. For example, the banking application on your phone uses private APIs to access the unique services of your specific bank.
+
 - **Partner APIs** are developed for use between specific organisations. The details of the API are disclosed to a limited set of partners. For example, a cloud database platform may agree to partner with a set number of analytics providers. 
+
 - **Composite APIs** are chained together for a particular function and might be a combination of public, private, and partner APIs. An example of a chained API using public and private APIs is the integration between a weather app and a fitness tracker app. The weather app’s public API provides data such as temperature and humidity to the fitness tracker app. Its private API brings data on the owner’s pace and distance covered and combines it with environmental factors to calculate calories burned.
 
 # How would you fingerprint a database server?
@@ -108,3 +111,90 @@ NoSQL Injection vulnerabilities often arise from issues within database librarie
 | **Query Parameters** | Exploits vulnerabilities in query parameters used within SQL statements. | Targets input data that is directly used in database queries or data manipulation operations. |
 | **Library Vulnerabilities** | Often related to poorly sanitized SQL queries in application code. | Often arises from weaknesses in NoSQL database libraries and how they handle user input without proper validation or parameterization. |
 | **Data Manipulation** | Frequently used to access, modify, or delete data in relational databases. | Attackers manipulate document structures or data objects, which may lead to data exposure or tampering. |
+
+
+# What is the Open Vulnerability and Assessment Language (OVAL)?
+The Open Vulnerability and Assessment Language (OVAL) is an international, community-standardised, XML-based language used to automate the assessment and reporting of a computer system's security state. It standardises how to check for vulnerabilities, configuration issues, patches, and malicious software across various security tools
+
+Tools and services that use OVAL for the three steps of system assessment
+1. Representing system information
+2. Expressing specific machine states
+3. Reporting the results of an assessment
+
+
+# Explain the difference between Phishing, Smishing and Vishing and what risks do they pose?
+
+- **Phishing (Email Phishing):** Delivered via email or fraudulent websites. These usually mimic legitimate businesses to get users to click links or download attachments.
+- **Smishing (SMS Phishing):** Conducted via text messages or instant messaging apps (e.g., WhatsApp). Smishing often leverages the high open rates of text messages to send urgent alerts about bank accounts or deliveries.
+- **Vishing (Voice Phishing):** Occurs over phone calls or voice messages (VoIP). Scammers use voice communication—often impersonating authorities or bank officials—to manipulate victims in real-time
+
+| Type     | Medium     | Key Tactic                          | Example                                                     |
+|----------|------------|--------------------------------------|-------------------------------------------------------------|
+| Phishing | Email      | Spoofed email/website.               | "Action Required: Your Amazon account has been locked."     |
+| Smishing | Text/SMS   | Urgent, short message with a link.   | "Your package is pending delivery. Click here to update your address." |
+| Vishing  | Phone Call | Impersonation, "Live" pressure.      | "Hello, this is fraud detection. We need your PIN to secure your account." 
+
+## Risks
+- **Identity Theft:** Stolen personal details such as; addresses, full names, etc
+
+- **Financial Loss:** Direct theft of money through unauthorised bank transfers, fraudulent bank transfers, or stolen credit card details.
+
+- **Data Breaches:** Compromise of login credentials, including passwords, 2FA codes, or session tokens.
+
+- **Malware and Ransomware Installation:** Links can install malicious software (adware/spyware) or ransomware that locks files until a ransom is paid.
+
+- **Access to Corporate Networks:** Attackers can use stolen credentials to infiltrate company systems, leading to intellectual property theft or operational disruption (e.g., stopping operations).
+
+- **"MFA Fatigue":** Repeated 2FA notifications aimed at wearing down the victim to approve a log-in, a rising tactic in 2026.
+
+# What tools could you use to enumerate Domain Name System (DNS) for ZONE transfer vulnerabilities?
+DNS servers contain a *Zone* file that replicates the map of the domain.
+Only the server itself should have access to it, but if it's misconfigured anyone can request the file and get the list of all the sub-domains.
+
+- **DiG (Domain Information Groper)**: It is frequently used to test for zone transfer vulnerabilities by attempting an AXFR query. 
+	- **Command:** `dig axfr @<nameserver> <domain>`
+	- **Purpose:** Directly queries the authoritative DNS server to attempt a full zone transfer. 
+
+ - **DNSRecon**:  Python script often used for comprehensive DNS enumeration. It can automatically check all NS records for zone transfers and supports multiple output formats. 
+	- **Command:** `dnsrecon -d <domain> -t axfr`
+	- **Purpose:** Automates AXFR tests against name servers for a specified domain. 
+
+-  **Nmap (DNS Enumeration Scripts)**: Nmap includes specialized Network Scripting Engine (NSE) scripts to detect misconfigured DNS servers. 
+	- **Command:** `nmap --script=dns-zone-transfer -p 53 <nameserver>`
+	- **Purpose:** Attempts a zone transfer (AXFR) query during the Nmap scan. 
+
+- **DNSenum**: is a versatile tool used for deep DNS enumeration. It can gather standard records, perform zone transfers, and conduct brute-force dictionary attacks to discover hidden subdomains. 
+	- **Command:** `dnsenum <domain>` 
+
+- **Nslookup**: While older, `nslookup` is a standard utility that can be used interactively to test for zone transfers by setting the query type to AXFR.
+# Explain what a Security identifier (SID) is and the different parts of a SID.
+A **Security Identifier (SID)** is a unique value used by the Microsoft Windows operating system to identify **security principals** such as users, groups, and computers. Instead of using the account name internally, Windows assigns each account a SID and uses that SID in permissions, access control lists (ACLs), and security auditing.
+
+**Example**
+```
+S-1-5-21-3623811015-3361044348-30300820-1013
+```
+
+1. **SID Indicator & Revision (`S-1`)**
+    - `S` indicates a SID.
+    - `1` is the revision level of the SID format.
+        
+2. **Identifier Authority (`5`)**
+    - Shows who issued the SID.
+    - `5` represents **NT Authority** in Windows.
+        
+3. **Domain or Computer Identifier (`21-3623811015-3361044348-30300820`)**
+    - Identifies the **domain or local machine** where the account exists.
+        
+4. **Relative Identifier – RID (`1013`)**
+    - Identifies the **specific user or group** within that domain.
+## Visual
+```
+S-1-5-21-3623811015-3361044348-30300820-1013
+│ │ │ │                                  │
+│ │ │ │                                  └── Relative Identifier (RID)
+│ │ │ └──────────────────────────────────── Domain / Computer Identifier
+│ │ └────────────────────────────────────── Identifier Authority
+│ └──────────────────────────────────────── Revision Level
+└────────────────────────────────────────── SID indicator
+```
