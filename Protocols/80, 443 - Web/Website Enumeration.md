@@ -84,8 +84,10 @@ wfuzz -u https://<link>/<page>/?FUZZ= -w <wordlist> -H "Cookie: PHPSESSID="
 
 
 # Attack Vectors
+- [[Account Takeover]]
 - [[Broken Access Control]]
 - [[Command Injection]]
+- [[CORS - Misconfigurations & Bypass]]
 - [[CRLF - Carriage Return Line Feed]]
 - [[CSRF - Cross Site Request Forgery]]
 - [[Directory Traversal]]
