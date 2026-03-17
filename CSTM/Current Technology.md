@@ -269,3 +269,45 @@ SNMP has three main versions:
 - **Default Configurations:** Many devices default to "public" (read-only) or "private" (read/write) strings, enabling easy unauthorised access to network configurations.
 - **Lack of Encryption:** Data transmitted in v1 and v2c can be read and manipulated in transit.
 - **UDP Vulnerabilities:** Since it uses UDP, it is susceptible to packet loss and spoofing attacks
+
+# What are the trade-offs between symmetrical and asymmetrical cryptography?
+The trade-offs between symmetric and asymmetric cryptography centre on the balance between speed/efficiency and security/key management. 
+**Symmetric** cryptography uses a single shared key for both encryption and decryption, making it fast but difficult to distribute securely. 
+**Asymmetric** cryptography uses a public-private key pair, enhancing security and allowing for digital signatures, but at the cost of computational speed
+
+| Factor                    | Symmetric Cryptography                           | Asymmetric Cryptography                               |
+| ------------------------- | ------------------------------------------------ | ----------------------------------------------------- |
+| **Key Usage**             | Same key for encryption & decryption             | Key pair: public key (encrypt), private key (decrypt) |
+| **Speed**                 | Very fast                                        | Slower, computationally intensive                     |
+| **Key Size for Security** | Short (e.g., 128–256 bits)                       | Long (e.g., 2048–4096 bits)                           |
+| **Key Management**        | Difficult at scale; keys must be shared securely | Easier at scale; public key can be shared openly      |
+| **Secure Key Exchange**   | Problematic                                      | Built-in; secure via public key                       |
+| **Digital Signatures**    | Not supported                                    | Supported (authentication & non-repudiation)          |
+| **Best Use Case**         | Bulk data encryption                             | Key exchange, authentication, small data encryption   |
+| **Scalability**           | Poor for large networks (needs many keys)        | Good for large networks (one key pair per user)       |
+
+
+# Explain some vulnerabilities in SSL (Secure Sockets Layer) and TLS (Transport Layer Security)?
+SSL and TLS vulnerabilities often stem from outdated protocols (SSL 3.0), weak cipher suites, and improper configurations, allowing attackers to perform Man-in-the-Middle (MITM) attacks, data decryption, or session hijacking
+
+| Protocol | Key Vulnerabilities                     | Notes / Impact |
+|----------|----------------------------------------|----------------|
+| SSL 2.0 / 3.0 | POODLE, weak ciphers, no forward secrecy, MITM risk | Outdated, insecure; should be disabled |
+| TLS 1.0 / 1.1 | BEAST, CRIME, BREACH, weak ciphers, downgrade attacks | Older TLS versions; vulnerable to known attacks |
+| TLS 1.2 / 1.3 | Fewer vulnerabilities, but misconfigurations can allow weak ciphers or downgrade attacks | Recommended; use strong ciphers and forward secrecy |
+
+# Explain the purpose of a Remote Authentication Dial-In User Service (RADUIS) server
+A **Remote Authentication Dial-In User Service** (RADIUS) server provides centralised authentication, authorisation, and accounting (AAA) management for users connecting to a network, such as Wi-Fi and VPNs. It enhances security by verifying user credentials against a central databases, like Active Directory before allowing network access
+
+## **How it works**
+
+1. A user/device connects to a **network access server (NAS)** (like a VPN, Wi-Fi access point, or switch).
+
+2. The NAS forwards the credentials to the **RADIUS server**.
+
+3. The RADIUS server checks the credentials against a **central database** (like LDAP, Active Directory, or a local database).
+
+4. The server responds with:
+    - **Access-Accept** → grant access
+    - **Access-Reject** → deny access
+    - **Access-Challenge** → request more info (e.g., multi-factor authentication)
