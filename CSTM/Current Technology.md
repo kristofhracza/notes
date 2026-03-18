@@ -311,3 +311,61 @@ A **Remote Authentication Dial-In User Service** (RADIUS) server provides centra
     - **Access-Accept** → grant access
     - **Access-Reject** → deny access
     - **Access-Challenge** → request more info (e.g., multi-factor authentication)
+
+# Where are passwords stored on server devices?
+Passwords on server devices are typically stored in hashed and encrypted formats within specialised system database.
+
+## Windows Server
+
+- **Local Accounts:** Stored in the **Security Account Manager (SAM)** database, located at `%SystemRoot%\system32\config\SAM`.
+
+- **Domain Accounts:** Stored in Active Directory, specifically in the `NTDS.dit` file on Domain Controllers, typically located at `%SystemRoot%\NTDS\NTDS.dit`.
+
+- **Cached Credentials:** When a domain user logs in, the password hash is cached in the registry under `HKEY_LOCAL_MACHINE\SECURITY`.
+
+- **Windows Vault/Credential Manager:** Encrypted credentials for apps, websites, and network resources are stored under `%Systemdrive%\Users[Username]\AppData\Local\Microsoft\Vault`.
+
+- **Service Accounts:** Passwords for services are stored in the registry under `HKEY_LOCAL_MACHINE\SECURITY\Policy\Secrets`. 
+
+## Linux Server
+- **User Passwords:** Stored in the `/etc/shadow` file. This file is secured so that only the root user can read it.
+
+- **Storage Method:** Passwords are never stored in plain text. They are hashed using algorithms like SHA512, bcrypt, or yescrypt, typically with a salt to prevent rainbow table attacks.
+
+
+
+# Explain Structured Query Language injection (SQLi)
+
+SQL Injection (SQLi) is a vulnerability where untrusted input is concatenated directly into a SQL query, allowing an attacker to manipulate the query's logic and break the boundary between data and code.
+The attack exploits applications that use **string concatenation** to build queries by injecting SQL reserved characters (like `'`, `--`, or `;`).
+If the code is vulnerable the attacker will be able to query data from the database, or even get an RCE vulnerability.
+
+
+
+
+
+# If password hashes cannot be cracked can the hashes be used in any way and how would you do this?
+Uncracked password hashes can still be used to impersonate users through a technique called **Pass-the-Hash (PtH)**. Attackers do not need the original password if they have the hash; they can inject it into authentication protocols to log in as that user, as the system validates the hash itself rather than the password.
+
+## How to Use Uncracked Hashes (Pass-the-Hash):
+- **Extract Hashes:** Attackers gain initial access to a system (e.g., Windows) and extract hashes from memory (LSASS) or the SAM database.
+
+- **Authenticate Directly:** Using tools like Mimikatz, an attacker uses the hash as the credentials in protocols like NTLM or Kerberos, skipping the plaintext password entirely.
+
+- **Lateral Movement:** This allows attackers to move between systems in a network without needing to break the encryption or hash strength
+
+# Explain how a Cross-Site Request Forgery (CSRF) exploit works
+**Cross-Site Request Forgery (CSRF)** is an attack that forces an end user to execute (submit) unwanted actions on a web application in which they’re currently authenticated. With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker’s choosing, such as stealing cookies, or changing user passwords
+
+
+
+# Explain session hijacking (with respect to web application testing)
+In web application testing, **session hijacking** is an attack where an adversary gains unauthorised access to a user's active session by stealing or predicting their unique **session ID**.
+
+## Key Attack Techniques
+
+- **Cross-Site Scripting (XSS):** Injecting malicious JavaScript into a page that, when executed by a victim's browser, sends their session cookies directly to the attacker's server.
+
+- **Session Sniffing (Side-Jacking):** Using packet sniffers (like Wireshark) on unencrypted networks, such as public Wi-Fi, to capture session IDs transmitted in "the clear".
+
+- **Session Prediction:** Analysing how an application generates IDs to guess future valid tokens, especially if they are sequential or based on predictable data like timestamps.
