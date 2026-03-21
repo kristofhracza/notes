@@ -56,7 +56,7 @@ Kerberos uses tickets to allow nodes to prove their identity over non-secure net
 
 
 # Directory Traversal
-[[Directory Traversal]]is a web security vulnerability allowing attackers to access unauthorised files, such as source code or system credentials, by manipulating file paths with `../` sequences. By tricking a server into traversing outside the root directory, attackers can read, modify, or delete sensitive data.
+[[Directory Traversal]] is a web security vulnerability allowing attackers to access unauthorised files, such as source code or system credentials, by manipulating file paths with `../` sequences. By tricking a server into traversing outside the root directory, attackers can read, modify, or delete sensitive data.
 It can also be used in file uploads by using the sequences in the file name for example.
 
 # What are the four types of Application Programming Interface (API)?
@@ -148,7 +148,7 @@ Tools and services that use OVAL for the three steps of system assessment
 - **"MFA Fatigue":** Repeated 2FA notifications aimed at wearing down the victim to approve a log-in, a rising tactic in 2026.
 
 # What tools could you use to enumerate Domain Name System (DNS) for ZONE transfer vulnerabilities?
-DNS servers contain a *Zone* file that replicates the map of the domain.
+[[53 - DNS]] servers contain a *Zone* file that replicates the map of the domain.
 Only the server itself should have access to it, but if it's misconfigured anyone can request the file and get the list of all the sub-domains.
 
 - **DiG (Domain Information Groper)**: It is frequently used to test for zone transfer vulnerabilities by attempting an AXFR query. 
@@ -226,6 +226,7 @@ This way only the owner has the **private key**, but the **public key is shared*
 - Public Key -- Verify
 
 # What ports need to be open on a domain controller (DC)?
+
 | Port | Protocol | Service                  | Purpose                                     |
 | ---- | -------- | ------------------------ | ------------------------------------------- |
 | 53   | TCP/UDP  | DNS                      | Domain name resolution for Active Directory |
@@ -243,7 +244,7 @@ This way only the owner has the **private key**, but the **public key is shared*
 
 
 # Explain the Simple Network Management Protocol (SNMP) protocol and any weaknesses in the protocol
-**SNMP** is a standard protocol used for **monitoring, managing, and configuring network devices** like routers, switches, servers, printers, and other networked hardware. It’s widely used in network management systems (NMS) to collect information about devices and sometimes to control them remotely.
+**[[161, 162, 10161, 10162 - SNMP | SNMP]]** is a standard protocol used for **monitoring, managing, and configuring network devices** like routers, switches, servers, printers, and other networked hardware. It’s widely used in network management systems (NMS) to collect information about devices and sometimes to control them remotely.
 
 ## Key Components
 1. **Managed Devices** – Devices on the network that support SNMP (e.g., routers, switches, servers).
@@ -355,7 +356,7 @@ Uncracked password hashes can still be used to impersonate users through a techn
 - **Lateral Movement:** This allows attackers to move between systems in a network without needing to break the encryption or hash strength
 
 # Explain how a Cross-Site Request Forgery (CSRF) exploit works
-**Cross-Site Request Forgery (CSRF)** is an attack that forces an end user to execute (submit) unwanted actions on a web application in which they’re currently authenticated. With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker’s choosing, such as stealing cookies, or changing user passwords
+[[CSRF - Cross Site Request Forgery]])** is an attack that forces an end user to execute (submit) unwanted actions on a web application in which they’re currently authenticated. With a little help of social engineering (such as sending a link via email or chat), an attacker may trick the users of a web application into executing actions of the attacker’s choosing, such as stealing cookies, or changing user passwords
 
 
 
@@ -369,3 +370,61 @@ In web application testing, **session hijacking** is an attack where an adversar
 - **Session Sniffing (Side-Jacking):** Using packet sniffers (like Wireshark) on unencrypted networks, such as public Wi-Fi, to capture session IDs transmitted in "the clear".
 
 - **Session Prediction:** Analysing how an application generates IDs to guess future valid tokens, especially if they are sequential or based on predictable data like timestamps.
+
+# What is Internet Information Service (IIS)?
+Internet Information Services (IIS) is a flexible, secure, and manageable web server created by Microsoft for hosting websites, services, and applications on Windows operating systems. It supports HTTP, HTTPS, FTP, and SMTP, enabling the delivery of static and dynamic content (like ASP.NET and PHP) to users.
+
+
+
+# Explain baseboard management controller (BMC) Hacking and the Intelligent Platform Management Interface (IPMI)
+
+A Baseboard Management Controller (BMC) is a specialised service processor on a server's motherboard that provides out-of-band management, allowing administrators to monitor, power cycle, or reconfigure systems remotely, even if they are turned off. The Intelligent Platform Management Interface (IPMI) is the standardised protocol used by BMCs to communicate
+
+**TLDR**: BMC --> Chip on server's motherboard that you can use for management | IPMI --> Protocol used to communicate with BMC
+
+
+# What are the pros and cons of using the cloud vs on prem (in terms of cyber security)?
+Cloud security offers superior, up-to-date protection, rapid scaling, and lower upfront costs, but relies on third-party security, while on-premise provides full control over data sovereignty, which is ideal for compliance but requires significant internal resources .
+
+| Aspect                | Cloud                                 | On-Premises                        |
+| --------------------- | ------------------------------------- | ---------------------------------- |
+| Responsibility        | Shared (provider + customer)          | Full control (all on you)          |
+| Patch Management      | Automatic (provider-managed)          | Manual (you must maintain)         |
+| Misconfiguration Risk | High (common cause of breaches)       | Moderate (depends on team skill)   |
+| Physical Security     | Provider handles it                   | You are responsible                |
+| Scalability (Defense) | High (elastic, handles large attacks) | Limited (hardware-dependent)       |
+| Visibility/Control    | Limited at lower levels               | Full visibility and control        |
+| Expertise Required    | Lower (built-in tools available)      | Higher (in-house expertise needed) |
+| Default Security      | Strong baseline                       | Varies widely                      |
+
+
+# What technical controls are available in the cloud to help with cyber security?
+## Identity & Access Management (IAM)
+- Role-based access control (RBAC)
+- Multi-factor authentication (MFA)
+- Least privilege policies
+- Single sign-on (SSO)
+
+## Encryption Controls
+- Encryption at rest and in transit
+- Customer-managed keys (CMK)
+- Hardware Security Modules (HSMs)
+
+## Network Security
+- Virtual networks (VPCs/VNets)
+- Security groups and firewall rules
+- Network ACLs
+- Private endpoints
+- DDoS protection
+
+## Logging & Monitoring
+- API and activity logging
+- Network flow logs
+- Centralised logging
+- Alerts and anomaly detection
+
+## Configuration Management
+- Continuous compliance checks
+- Secure configuration baselines
+- Policy enforcement
+- Infrastructure as Code scanning
