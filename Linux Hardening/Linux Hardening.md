@@ -39,6 +39,6 @@
 # Everything Needed For The Checklist
 - [[Commands and DIRs]]
 - Exploits and Techniques
-	- [[Linux Hardening/Exploits and Techniques/Path Hijacking|Path Hijacking]]
+	- [[Universal Attacks/Path Hijacking|Path Hijacking]]
 	- [[Shared Library Misconfiguration]]
 	- [[USBCreator D-Bus]]
